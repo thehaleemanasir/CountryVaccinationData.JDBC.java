@@ -5,9 +5,9 @@ import com.markcrowe.jdbc.countryvaccinationdata.CountryVaccinationData;
 import java.sql.*;
 
 public class CountryRepository {
-    private Connection connection;
+    private final Connection connection;
 
-    public CountryRepository() {
+    public CountryRepository(Connection connection) {
         this.connection = connection;
     }
     //task1

@@ -18,9 +18,8 @@ public class Main
 
 	DecimalFormat twoDigits = new DecimalFormat("0.00");
 	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-	public static void main(String[] args)
-	{
+	private final CountryRepository repo;
+	public static void main(String[] args) throws SQLException {
 
 		try
 		{
@@ -33,10 +32,10 @@ public class Main
 
 	}
 
-	public Main() throws ParseException
-	{
+	public Main() throws ParseException, SQLException {
 
-		// displayLine a welcome message
+		repo = new CountryRepository(DatabaseUtility.getConnection());
+
 		Console.displayLine("    Welcome to the Country Vaccination Data 2021 Database Main Menu");
 		Console.displayLine();
 

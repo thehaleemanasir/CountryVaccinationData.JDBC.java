@@ -19,17 +19,11 @@ public class Main {
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private final CountryRepository repository;
 
-    public static void main(String[] args) throws SQLException {
-
-        try {
-            new Main();
-        } catch (ParseException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    public static void main(String[] args) throws Exception {
+        new Main();
     }
 
-    public Main() throws ParseException, SQLException {
+    public Main() throws Exception {
 
         repository = new CountryRepository(DatabaseUtility.getConnection());
 
@@ -53,7 +47,6 @@ public class Main {
 
             //evaluate user choice
             switch (choice) {
-
                 case 1:
                     taskOne();
                     break;
@@ -61,49 +54,24 @@ public class Main {
                     taskTwo();
                     break;
                 case 3:
-                    String beginDateInput = Console.getString("Enter first date in the format yyyy-MM-dd: ");
-                    if (beginDateInput.isBlank()) {
-                        beginDateInput = "2021-01-01";
-                        Console.displayLine("Defaulting to 2021-01-01");
-                    }
-                    Date beginDate = dateFormat.parse(beginDateInput);
-                    String endDateInput = Console.getString("Enter second date in the format yyyy-MM-dd: ");
-                    if (endDateInput.isBlank()) {
-                        endDateInput = "2024-08-30";
-                        System.out.println("Defaulting to 2024-08-30");
-                    }
-                    Date endDate = dateFormat.parse(endDateInput);
-                    isoCode = Console.getString("Enter ISO Code: ");
-                    if (isoCode.isBlank()) {
-                        isoCode = "IRE";
-                        System.out.println("Defaulting to IRE");
-                    }
-                    taskThree(beginDate, endDate, isoCode);
+                    taskThree();
                     break;
                 case 4:
-                    int id = Console.getInt("Enter Record ID: ");
-                    taskFour(id);
+                    taskFour();
                     break;
-
-            }//end switch
-
+                default:
+                    Console.displayLine("Invalid Choice");
+            }
             Console.displayLine();
+        }
 
-        }//end while
-
-        //display ASCII art before exiting
         ASCIIArtGenerator art = new ASCIIArtGenerator();
-        try {
-            art.printTextArt("Bye!", 14, ASCIIArtGenerator.ASCIIArtFont.ART_FONT_DIALOG, "+");
-            System.exit(0);
-        } catch (Exception ex) {
-            Console.displayLine("Error with ASCII art " + ex);
-        }//end try
+        art.printTextArt("Bye!", 14, ASCIIArtGenerator.ASCIIArtFont.ART_FONT_DIALOG, "+");
+        System.exit(0);
     }
 
     private void taskOne() throws SQLException {
         String isoCode = Console.getString("Enter ISO Code: ");
-
         repository.searchByIsoCode(isoCode);
         Console.displayLine();
     }
@@ -171,19 +139,34 @@ public class Main {
         Console.displayLine();
     }
 
-    private void taskThree(Date sDate, Date eDate, String isoCode) throws SQLException {
-        repository.calculateAverageDailyVaccinations(new java.sql.Date(sDate.getTime()),
-                new java.sql.Date(eDate.getTime()),
+    private void taskThree() throws SQLException, ParseException {
+        String beginDateInput = Console.getString("Enter first date in the format yyyy-MM-dd: ");
+        if (beginDateInput.isBlank()) {
+            beginDateInput = "2021-01-01";
+            Console.displayLine("Defaulting to 2021-01-01");
+        }
+        Date beginDate = dateFormat.parse(beginDateInput);
+        String endDateInput = Console.getString("Enter second date in the format yyyy-MM-dd: ");
+        if (endDateInput.isBlank()) {
+            endDateInput = "2024-08-30";
+            System.out.println("Defaulting to 2024-08-30");
+        }
+        Date endDate = dateFormat.parse(endDateInput);
+        String isoCode = Console.getString("Enter ISO Code: ");
+        if (isoCode.isBlank()) {
+            isoCode = "IRE";
+            System.out.println("Defaulting to IRE");
+        }
+        repository.calculateAverageDailyVaccinations(new java.sql.Date(beginDate.getTime()),
+                new java.sql.Date(endDate.getTime()),
                 isoCode);
 
         Console.displayLine();
     }
 
-    private void taskFour(int id) throws SQLException {
-        //ToDo Task 4
+    private void taskFour() throws SQLException {
+        int id = Console.getInt("Enter Record ID: ");
         repository.retrieveRecordById(id);
         Console.displayLine();
-
     }
-
-}//end class
+}

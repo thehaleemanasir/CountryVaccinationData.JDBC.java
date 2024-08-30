@@ -1,4 +1,4 @@
-package com.markcrowe.jdbc.commandline;
+package com.markcrowe.jdbc.utils;
 
 import java.util.Scanner;
 

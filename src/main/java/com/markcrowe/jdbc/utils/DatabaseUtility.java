@@ -1,4 +1,4 @@
-package com.markcrowe.jdbc;
+package com.markcrowe.jdbc.utils;
 
 import java.sql.*;
 

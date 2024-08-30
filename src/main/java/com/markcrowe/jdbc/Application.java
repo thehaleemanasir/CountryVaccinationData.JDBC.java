@@ -1,8 +1,9 @@
-package com.markcrowe.jdbc.commandline;
+package com.markcrowe.jdbc;
 
-import com.markcrowe.jdbc.DatabaseUtility;
-import com.markcrowe.jdbc.ascii.ASCIIArtGenerator;
-import com.markcrowe.jdbc.countryvaccinationdata.CountryVaccinationData;
+import com.markcrowe.jdbc.model.CountryRepository;
+import com.markcrowe.jdbc.model.CountryVaccinationData;
+import com.markcrowe.jdbc.utils.Console;
+import com.markcrowe.jdbc.utils.DatabaseUtility;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -10,24 +11,22 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class Main {
+public class Application {
 
     DecimalFormat twoDigits = new DecimalFormat("0.00");
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private final CountryRepository repository;
 
     public static void main(String[] args) throws Exception {
-        new Main();
+        new Application();
     }
 
-    public Main() throws Exception {
+    public Application() throws Exception {
 
         repository = new CountryRepository(DatabaseUtility.getConnection());
 
-        Console.displayLine("    Welcome to the Country Vaccination Data 2021 Database Main Menu");
+        Console.displayLine("    Welcome to the Country Vaccination Data 2021 Database Application Menu");
         Console.displayLine();
 
         int choice = 0;
@@ -65,13 +64,11 @@ public class Main {
             Console.displayLine();
         }
 
-        ASCIIArtGenerator art = new ASCIIArtGenerator();
-        art.printTextArt("Bye!", 14, ASCIIArtGenerator.ASCIIArtFont.ART_FONT_DIALOG, "+");
         System.exit(0);
     }
 
     private void taskOne() throws SQLException {
-        String isoCode = Console.getString("Enter ISO Code: ");
+        String isoCode = Console.getString("Enter ISO Code:  ");
         repository.searchByIsoCode(isoCode);
         Console.displayLine();
     }
@@ -149,13 +146,13 @@ public class Main {
         String endDateInput = Console.getString("Enter second date in the format yyyy-MM-dd: ");
         if (endDateInput.isBlank()) {
             endDateInput = "2024-08-30";
-            System.out.println("Defaulting to 2024-08-30");
+            Console.displayLine("Defaulting to 2024-08-30");
         }
         Date endDate = dateFormat.parse(endDateInput);
         String isoCode = Console.getString("Enter ISO Code: ");
         if (isoCode.isBlank()) {
             isoCode = "IRE";
-            System.out.println("Defaulting to IRE");
+            Console.displayLine("Defaulting to IRE");
         }
         repository.calculateAverageDailyVaccinations(new java.sql.Date(beginDate.getTime()),
                 new java.sql.Date(endDate.getTime()),

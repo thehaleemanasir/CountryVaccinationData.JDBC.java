@@ -1,4 +1,4 @@
-package com.markcrowe.jdbc.countryvaccinationdata;
+package com.markcrowe.jdbc.model;
 
 import java.util.Date;
 import lombok.AllArgsConstructor;

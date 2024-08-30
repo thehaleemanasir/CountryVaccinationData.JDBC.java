@@ -1,10 +1,9 @@
-package com.markcrowe.jdbc.commandline;
-
-import com.markcrowe.jdbc.countryvaccinationdata.CountryVaccinationData;
+package com.markcrowe.jdbc.model;
 
 import java.sql.*;
 
-import com.markcrowe.jdbc.DatabaseUtility;
+import com.markcrowe.jdbc.utils.Console;
+import com.markcrowe.jdbc.utils.DatabaseUtility;
 
 public class CountryRepository {
     private final Connection connection;

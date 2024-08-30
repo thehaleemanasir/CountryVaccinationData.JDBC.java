@@ -1,7 +1,10 @@
 package com.markcrowe.jdbc.commandline;
 
+import com.markcrowe.jdbc.DatabaseUtility;
 import com.markcrowe.jdbc.ascii.ASCIIArtGenerator;
 import com.markcrowe.jdbc.countryvaccinationdata.CountryVaccinationData;
+
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -103,30 +106,30 @@ public class Main
 		}//end try
 	}
 
-	private void taskOne(String iso_code)
-	{
+	private void taskOne(String iso_code) throws SQLException {
 		//ToDo Task 1
-
+		repo.searchByIsoCode(iso_code);
 		Console.displayLine();
 	}
 
-	private void taskTwo(CountryVaccinationData c)
-	{
+	private void taskTwo(CountryVaccinationData c) throws SQLException {
 		//ToDo Task 2
-
+		repo.insertNewRecord(c);
 		Console.displayLine();
 	}
 
-	private void taskThree(Date sDate, Date eDate, String iso_code)
-	{
+	private void taskThree(Date sDate, Date eDate, String iso_code) throws SQLException {
 		//ToDo Task 3
+		repo.calculateAverageDailyVaccinations((java.sql.Date) sDate, (java.sql.Date) eDate, iso_code);
 
 		Console.displayLine();
 	}
 
-	private void taskFour(int id)
-	{
+	private void taskFour(int id) throws SQLException {
 		//ToDo Task 4
+		repo.retrieveRecordById(id);
+		Console.displayLine();
+
 	}
 
 }//end class

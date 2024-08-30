@@ -89,7 +89,7 @@ UNLOCK TABLES;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getCountryByID`(IN `cID` INT(5))
     READS SQL DATA
-select * from `countries` where `id` = cID ;;
+select * from `country_vaccination_data` where `id` = cID ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;

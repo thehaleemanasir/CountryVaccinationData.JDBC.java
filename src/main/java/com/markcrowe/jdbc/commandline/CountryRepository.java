@@ -61,6 +61,7 @@ public class CountryRepository {
         throw new SQLException("Creating property failed, no ID obtained.");
     }
 
+
     //task3
     public void calculateAverageDailyVaccinations(Date beginDate, Date endDate, String isoCode) throws SQLException {
         String query = "SELECT AVG(daily_vaccinations) FROM country_vaccination_data " +
@@ -88,11 +89,11 @@ public class CountryRepository {
         try (CallableStatement callableStatement = connection.prepareCall(query)) {
 
             callableStatement.setInt(1, recordID);
-            ResultSet ResultSet = callableStatement.executeQuery();
+            ResultSet resultSet = callableStatement.executeQuery();
 
-            if (ResultSet.next()) {
-                System.out.println("ID: " + ResultSet.getInt("id") + ", Country: " + ResultSet.getString("country") +
-                        ", Date: " + ResultSet.getDate("date") + ", Total Vaccinations: " + ResultSet.getInt("total_vaccinations"));
+            if (resultSet.next()) {
+                System.out.println("ID: " + resultSet.getInt("id") + ", Country: " + resultSet.getString("country") +
+                        ", Date: " + resultSet.getDate("date") + ", Total Vaccinations: " + resultSet.getInt("total_vaccinations"));
             } else {
                 System.out.println("No record found with ID: " + recordID);
             }

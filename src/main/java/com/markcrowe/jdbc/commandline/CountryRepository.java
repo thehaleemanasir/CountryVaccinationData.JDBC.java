@@ -23,15 +23,15 @@ public class CountryRepository {
 
             int count = 0;
             while (resultSet.next()) {
-                System.out.println("ID: " + resultSet.getInt("id") + ", Country: " + resultSet.getString("country") +
+                Console.displayLine("ID: " + resultSet.getInt("id") + ", Country: " + resultSet.getString("country") +
                         ", Date: " + resultSet.getDate("date") + ", Total Vaccinations: " + resultSet.getInt("total_vaccinations"));
                 count++;
             }
 
             if (count == 0) {
-                System.out.println("No records found for ISO code: " + isoCode);
+                Console.displayLine("No records found for ISO code: " + isoCode);
             } else {
-                System.out.println(count + " records found.");
+                Console.displayLine(count + " records found.");
             }
 
         }
@@ -91,10 +91,10 @@ public class CountryRepository {
             ResultSet resultSet = callableStatement.executeQuery();
 
             if (resultSet.next()) {
-                System.out.println("ID: " + resultSet.getInt("id") + ", Country: " + resultSet.getString("country") +
+                Console.displayLine("ID: " + resultSet.getInt("id") + ", Country: " + resultSet.getString("country") +
                         ", Date: " + resultSet.getDate("date") + ", Total Vaccinations: " + resultSet.getInt("total_vaccinations"));
             } else {
-                System.out.println("No record found with ID: " + recordID);
+                Console.displayLine("No record found with ID: " + recordID);
             }
         }
     }

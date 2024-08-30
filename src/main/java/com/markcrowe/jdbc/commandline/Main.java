@@ -58,17 +58,7 @@ public class Main {
                     taskOne();
                     break;
                 case 2:
-                    String country = Console.getString("Enter country: ");
-                    String isoCode = Console.getString("Enter ISO Code: ");
-                    Date now = new Date();
-                    String totalVaccinationsInput = Console.getString("Enter Total Vaccinations: ");
-                    int totalVaccinations = Console.getInt("Enter Total Vaccinations: ");
-                    int peopVacc = Console.getInt("Enter People Vaccinated: ");
-                    int totPeopVacc = Console.getInt("Enter People Fully Vaccinated: ");
-                    int dailyVacc = Console.getInt("Enter Daily Vaccinations: ");
-                    String vaccines = Console.getString("Enter Vaccines: ");
-                    CountryVaccinationData c = new CountryVaccinationData(choice, country, isoCode, now, totalVaccinations, peopVacc, totPeopVacc, dailyVacc, vaccines);
-                    taskTwo(c);
+                    taskTwo();
                     break;
                 case 3:
                     String beginDateInput = Console.getString("Enter first date in the format yyyy-MM-dd: ");
@@ -118,9 +108,66 @@ public class Main {
         Console.displayLine();
     }
 
-    private void taskTwo(CountryVaccinationData c) throws SQLException {
-        //ToDo Task 2
-        repository.insertNewRecord(c);
+    private void taskTwo() throws SQLException {
+        String country = Console.getString("Enter country: ");
+        if (country.isBlank()) {
+            country = "Ireland";
+            Console.displayLine("Defaulting to Ireland");
+        }
+        String isoCode = Console.getString("Enter ISO Code: ");
+        if (isoCode.isBlank()) {
+            isoCode = "IRE";
+            Console.displayLine("Defaulting to IRE");
+        }
+        String totalVaccinationsInput = Console.getString("Enter Total Vaccinations: ");
+        int totalVaccinations = 0;
+        if (totalVaccinationsInput.isBlank()) {
+            totalVaccinations = 1_000_000;
+            Console.displayLine("Defaulting to 1000000");
+        } else {
+            totalVaccinations = Integer.parseInt(totalVaccinationsInput);
+        }
+        String peopleVaccinatedInput = Console.getString("Enter People Vaccinated: ");
+        int peopleVaccinated;
+        if (peopleVaccinatedInput.isBlank()) {
+            peopleVaccinated = 500_000;
+            Console.displayLine("Defaulting to 500000");
+        } else {
+            peopleVaccinated = Integer.parseInt(peopleVaccinatedInput);
+        }
+        String totalPeopleVaccinatedInput = Console.getString("Enter Total People Vaccinated: ");
+        int totalPeopleVaccinated;
+        if (totalPeopleVaccinatedInput.isBlank()) {
+            totalPeopleVaccinated = 500_000;
+            Console.displayLine("Defaulting to 500000");
+        } else {
+            totalPeopleVaccinated = Integer.parseInt(totalPeopleVaccinatedInput);
+        }
+        String dailyVaccinatedInput = Console.getString("Enter Daily Vaccinations: ");
+        int dailyVaccinated;
+        if (dailyVaccinatedInput.isBlank()) {
+            dailyVaccinated = 10_000;
+            Console.displayLine("Defaulting to 10000");
+        } else {
+            dailyVaccinated = Integer.parseInt(dailyVaccinatedInput);
+        }
+        String vaccines = Console.getString("Enter Vaccines: ");
+        if (vaccines.isBlank()) {
+            vaccines = "Pfizer";
+            Console.displayLine("Defaulting to Pfizer");
+        }
+
+        CountryVaccinationData countryVaccinationData = new CountryVaccinationData(0,
+                country,
+                isoCode,
+                new Date(),
+                totalVaccinations,
+                peopleVaccinated,
+                totalPeopleVaccinated,
+                dailyVaccinated,
+                vaccines);
+
+        repository.insertNewRecord(countryVaccinationData);
         Console.displayLine();
     }
 

@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Console
 {
 
-	private static Scanner sc = new Scanner(System.in);
+	private static Scanner scanner = new Scanner(System.in);
 
 	public static void displayLine()
 	{
@@ -20,7 +20,7 @@ public class Console
 	public static String getString(String prompt)
 	{
 		System.out.println(prompt);
-		return sc.nextLine();
+		return scanner.nextLine();
 	}
 
 	public static int getInt(String prompt)
@@ -31,7 +31,7 @@ public class Console
 			System.out.println(prompt);
 			try
 			{
-				i = Integer.parseInt(sc.nextLine());
+				i = Integer.parseInt(scanner.nextLine());
 				break;
 			}
 			catch(NumberFormatException e)
@@ -50,7 +50,7 @@ public class Console
 			System.out.println(prompt);
 			try
 			{
-				d = Double.parseDouble(sc.nextLine());
+				d = Double.parseDouble(scanner.nextLine());
 				break;
 			}
 			catch(NumberFormatException e)
@@ -62,5 +62,10 @@ public class Console
 	}
 	private Console()
 	{
+	}
+
+	public static void waitForEnter() {
+		System.out.println("Press Enter to continue...");
+		scanner.nextLine();
 	}
 }

@@ -47,16 +47,16 @@ public class Application {
             //evaluate user choice
             switch (choice) {
                 case 1:
-                    taskOne();
+                    task1();
                     break;
                 case 2:
-                    taskTwo();
+                    task2();
                     break;
                 case 3:
-                    taskThree();
+                    task3();
                     break;
                 case 4:
-                    taskFour();
+                    task4();
                     break;
                 default:
                     Console.displayLine("Invalid Choice");
@@ -67,13 +67,19 @@ public class Application {
         System.exit(0);
     }
 
-    private void taskOne() throws SQLException {
+    private void task1() throws SQLException {
         String isoCode = Console.getString("Enter ISO Code:  ");
+        if (isoCode.isBlank()) {
+            isoCode = "IRE";
+            Console.displayLine("Defaulting to IRE");
+        }
         repository.searchByIsoCode(isoCode);
+        Console.waitForEnter();
         Console.displayLine();
+
     }
 
-    private void taskTwo() throws SQLException {
+    private void task2() throws SQLException {
         String country = Console.getString("Enter country: ");
         if (country.isBlank()) {
             country = "Ireland";
@@ -134,9 +140,11 @@ public class Application {
 
         repository.insertNewRecord(countryVaccinationData);
         Console.displayLine();
+        Console.waitForEnter();
+
     }
 
-    private void taskThree() throws SQLException, ParseException {
+    private void task3() throws SQLException, ParseException {
         String beginDateInput = Console.getString("Enter first date in the format yyyy-MM-dd: ");
         if (beginDateInput.isBlank()) {
             beginDateInput = "2021-01-01";
@@ -158,12 +166,15 @@ public class Application {
                 new java.sql.Date(endDate.getTime()),
                 isoCode);
 
+        Console.waitForEnter();
+
         Console.displayLine();
     }
 
-    private void taskFour() throws SQLException {
+    private void task4() throws SQLException {
         int id = Console.getInt("Enter Record ID: ");
         repository.retrieveRecordById(id);
+        Console.waitForEnter();
         Console.displayLine();
     }
 }

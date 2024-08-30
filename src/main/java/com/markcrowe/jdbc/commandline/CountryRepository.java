@@ -58,7 +58,6 @@ public class CountryRepository {
             countryVaccinationData.setId(newId);
             return newId;
         }
-        throw new SQLException("Creating property failed, no ID obtained.");
     }
 
 
